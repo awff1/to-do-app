@@ -1,4 +1,6 @@
 import { TodoItem } from './components/TodoItem/TodoItem.tsx';
+import { TodoForm } from './components/TodoForm/TodoForm.tsx';
+
 import './App.css'
 import type { TodoItemType } from "./shared/types.ts";
 import { useState } from "react";
@@ -34,31 +36,33 @@ function App() {
       })
     });
   }
+  const handleAddTodo = (text: string) => {
+    const newTodo: TodoItemType = {
+        id: Date.now(),
+        label: text,
+        isChecked: false
+    };
+    setTodos((prevState) => [...prevState, newTodo]);
+  }
 
-  // TODO: реализовать компонент TodoForm для добавления новой задачи.
-  //
-  // Подсказки:
-  // 1. Создайте новый компонент в src/components/TodoForm/TodoForm.tsx
-  // 2. Внутри компонента понадобится:
-  //    - поле ввода <input /> для текста новой задачи
-  //    - локальное состояние через useState для хранения введённого текста
-  //    - кнопка "Добавить задачу", по клику на которую вызывается колбэк из props
-  // 3. Опишите тип пропсов, например:
-  //      type TodoFormProps = { onAdd: (todoItem: TodoItemType) => void }
-  // 4. В App.tsx:
-  //    - импортируйте TodoForm
-  //    - напишите функцию handleAddTodo, которая через setTodos добавит новую задачу в список
-  //      (не забудьте сгенерировать уникальный id — например, через Date.now() или crypto.randomUUID())
-  //    - добавьте <TodoForm onAdd={handleAddTodo} /> над списком задач
-  // 5. Подумайте про крайние случаи: пустая строка, пробелы, очистка инпута после добавления.
+
 
   return (
-      <div className="todo-list">
-        {/* Сюда позже нужно добавить <TodoForm onAdd={handleAddTodo} /> */}
-        {todos.map((value) => (
-            <TodoItem id={value.id} key={value.id} label={value.label} done={value.isChecked} onChange={handleTaskCheckedChange} />
-        ))}
-      </div>
+    <div className="app-container">
+        <h1>Мои задачи</h1>
+        <TodoForm onAdd={handleAddTodo} />
+        <div className="todo-list">
+            {todos.map((value) => (
+                <TodoItem 
+                    id={value.id} 
+                    key={value.id} 
+                    label={value.label} 
+                    done={value.isChecked} 
+                    onChange={handleTaskCheckedChange} 
+                />
+            ))}
+        </div>
+    </div>
   )
 }
 
