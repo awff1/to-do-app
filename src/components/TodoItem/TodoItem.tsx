@@ -16,7 +16,7 @@ export function TodoItem(props: TodoItemProps) {
     return (
         <div className="todo-item">
             <input type="checkbox" checked={done} onChange={handleChange} />
-            <span>{label}</span>
+            <span className={done ? 'completed' : ''}>{label}</span>
         </div>
     )
 }

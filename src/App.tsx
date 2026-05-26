@@ -49,7 +49,7 @@ function App() {
 
   return (
     <div className="app-container">
-        <h1>Мои задачи</h1>
+        <h1 className='app-title'>Мои задачи</h1>
         <TodoForm onAdd={handleAddTodo} />
         <div className="todo-list">
             {todos.map((value) => (
